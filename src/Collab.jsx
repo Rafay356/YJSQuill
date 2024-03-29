@@ -11,7 +11,7 @@ import { WebrtcProvider } from "y-webrtc";
 Quill.register("modules/cursors", QuillCursors);
 const ydoc = new Y.Doc();
 const provider = new WebrtcProvider("room", ydoc, {
-  signaling: ["ws://localhost:5173"],
+  signaling: ["ws://localhost:4444"],
   password: null,
   awareness: new awarenessProtocol.Awareness(ydoc),
   // Maximal number of WebRTC connections.

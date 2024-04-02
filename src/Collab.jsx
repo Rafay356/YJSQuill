@@ -11,7 +11,7 @@ import { WebrtcProvider } from "y-webrtc";
 Quill.register("modules/cursors", QuillCursors);
 const ydoc = new Y.Doc();
 const provider = new WebrtcProvider("room", ydoc, {
-  signaling: ["ws://localhost:4444"],
+  signaling: ["ws://localhost:5173"],
   password: null,
   awareness: new awarenessProtocol.Awareness(ydoc),
   // Maximal number of WebRTC connections.
@@ -25,6 +25,21 @@ const provider = new WebrtcProvider("room", ydoc, {
   // y-webrtc uses simple-peer internally as a library to create WebRTC connections.
   peerOpts: {},
 });
+const awareness = provider.awareness;
+awareness.on("change", (changes) => {
+  // Whenever somebody updates their awareness information,
+  // we log all awareness information from all users.
+  console.log(Array.from(awareness.getStates().values()));
+});
+awareness.setLocalStateField("user", {
+  // Define a print name that should be displayed
+  name: "Abdul",
+  // Define a color that should be associated to the user:
+  color: "#00ff00", // should be a hex color
+});
+provider.on("synced", () => {
+  console.log("synced");
+});
 // const provider = new WebrtcProvider('quill-demo-room', ydoc)
 const Collab = () => {
   const editorRef = useRef(null);
@@ -33,13 +48,13 @@ const Collab = () => {
 
   useEffect(() => {
     if (editorRef.current) {
-      const quill = new Quill(editorRef.current, {
+      const quill = new Quill("#editor", {
         modules: {
           cursors: true,
           toolbar: [
-            [{ header: [1, 2, false] }],
+            [{ header: [1, 2, 3, false] }],
             ["bold", "italic", "underline"],
-            ["image", "code-block"],
+            ["code-block"],
           ],
           history: {
             userOnly: true,

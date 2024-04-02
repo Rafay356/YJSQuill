@@ -13,3 +13,5 @@ SET PORT=4080 && node server.js
 just change the PORT on which you are running your application
 once it signaling then you can synched peer to peer 
 and you are good to go
+# Awareness
+All editor bindings that support rendering cursor information accept an awareness instance to render cursor information. If the "user" awareness field is unspecified, then the editor binding will render the cursor in a default color using a random user name.

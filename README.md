@@ -9,7 +9,7 @@ Currently, two official plugins are available:
 # PORT + Signaling
 To Set Port in Window for signaling 
 we need this line of code
-SET PORT=4080 && node server.js 
+SET PORT=4080 && node ./bin/server.js 
 just change the PORT on which you are running your application
 once it signaling then you can synched peer to peer 
 and you are good to go
